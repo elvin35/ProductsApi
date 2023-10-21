@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using ProductsApi.Data;
+using ProductsApi.Profiles;
+
 namespace ProductsApi;
 
 using Microsoft.AspNetCore.Builder;
@@ -18,6 +22,12 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
+        services.AddSwaggerGen();
+        services.AddAutoMapper(typeof(ApplicationProfile));
+        services.AddDbContext<ProductsApiDbContext>(options =>
+        {
+            options.UseNpgsql(Configuration.GetConnectionString("ProductsApiConnectionString"));
+        });
     }
     
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
@@ -25,8 +35,9 @@ public class Startup
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
-       
         app.UseRouting();
         app.UseEndpoints(endpoits => endpoits.MapControllers());
     }
