@@ -37,5 +37,13 @@ namespace ProductsApi.Controllers
                 return Ok($"Product {product.Name} added");
             return BadRequest("This product exist");
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> RemoveProduct(string name)
+        {
+            if (await _productsRepository.Remove(name))
+                return Ok($"{name} deleted");
+            return BadRequest("Product not found");
+        }
     }
 }
