@@ -45,5 +45,14 @@ namespace ProductsApi.Controllers
                 return Ok($"{name} deleted");
             return BadRequest("Product not found");
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateProduct(string productName, [FromBody] UpdateProduct product)
+        {
+            var updatedProduct = _mapper.Map<Products>(product);
+            if (await _productsRepository.Update(productName, updatedProduct))
+                return Ok($"{productName} updated");
+            return BadRequest("Product not found");
+        }
     }
 }
