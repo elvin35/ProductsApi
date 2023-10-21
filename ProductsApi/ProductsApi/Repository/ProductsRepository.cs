@@ -44,9 +44,18 @@ namespace ProductsApi.Repository
             return true;
         }
 
-        public Task<bool> Update(string name, Products product)
+        public async Task<bool> Update(string name, Products product)
         {
-            
+            var oldProduct = await _context.Products.SingleOrDefaultAsync(product => product.Name == name);
+
+            if (product == null) { return false; }
+
+            oldProduct.Price = product.Price;
+            oldProduct.Description = product.Description;
+            oldProduct.Name = name;
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }
