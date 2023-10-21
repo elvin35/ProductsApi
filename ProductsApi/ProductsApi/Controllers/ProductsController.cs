@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using ProductsApi.Data;
 using ProductsApi.Models;
 using ProductsApi.Repository;
 using System.Collections.Generic;
@@ -26,6 +27,15 @@ namespace ProductsApi.Controllers
         {
             var products = _mapper.Map<List<ProductsModel>>(await _productsRepository.GetAll());
             return Ok(products);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddProduct(ProductsModel product)
+        {
+            var newProduct = _mapper.Map<Products>(product);
+            if (await _productsRepository.Add(newProduct))
+                return Ok($"Product {product.Name} added");
+            return BadRequest("This product exist");
         }
     }
 }
