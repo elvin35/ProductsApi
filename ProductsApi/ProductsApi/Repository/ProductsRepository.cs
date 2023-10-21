@@ -30,9 +30,9 @@ namespace ProductsApi.Repository
             return true;
         }
 
-        public Task<List<Products>> GetAll()
+        public async Task<List<Products>> GetAll()
         {
-            
+            return await _context.Products.ToListAsync();
         }
 
         public Task<bool> Remove(string name)
