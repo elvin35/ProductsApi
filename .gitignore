@@ -1,0 +1,7 @@
+.idea/
+.DS_Store
+.vs
+bin/
+obj/
+appsettings.json
+appsettings.Development.json
