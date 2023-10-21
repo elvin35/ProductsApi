@@ -35,9 +35,13 @@ namespace ProductsApi.Repository
             return await _context.Products.ToListAsync();
         }
 
-        public Task<bool> Remove(string name)
+        public async Task<bool> Remove(string name)
         {
-            
+            var product = await _context.Products.SingleOrDefaultAsync(product => product.Name == name);
+            if (product == null) { return false; }
+            _context.Remove(product);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public Task<bool> Update(string name, Products product)
