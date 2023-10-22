@@ -36,4 +36,10 @@ public class CustomersController : ControllerBase
         await _customersRepository.Add(newCustomer);
         return Ok();
     }
+
+    [HttpDelete("RemoveCustomer")]
+    public async Task<IActionResult> RemoveCustomer(string name)
+    {
+        return Ok(await _customersRepository.Remove(name));
+    }   
 }
