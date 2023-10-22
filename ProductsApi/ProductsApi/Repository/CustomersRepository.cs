@@ -29,7 +29,7 @@ public class CustomersRepository : ICustomersRepository
         if (customer == null)
             return false;
         _context.Customers.Remove(customer);
-        _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
         return true;
     }
 

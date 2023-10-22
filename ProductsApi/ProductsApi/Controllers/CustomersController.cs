@@ -41,5 +41,12 @@ public class CustomersController : ControllerBase
     public async Task<IActionResult> RemoveCustomer(string name)
     {
         return Ok(await _customersRepository.Remove(name));
-    }   
+    }
+
+    [HttpPost("BuyProductByName")]
+    public async Task<IActionResult> BuyProduct(string customerName, string productName)
+    {
+        await _customersRepository.BuyProduct(customerName, productName);
+        return Ok();
+    }
 }
