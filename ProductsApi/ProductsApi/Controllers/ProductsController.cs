@@ -22,14 +22,14 @@ namespace ProductsApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllProducts")]
         public async Task<IActionResult> GetAllProducts()
         {
             var products = _mapper.Map<List<ProductsModel>>(await _productsRepository.GetAll());
             return Ok(products);
         }
 
-        [HttpPost]
+        [HttpPost("AddNewProduct")]
         public async Task<IActionResult> AddProduct(ProductsModel product)
         {
             var newProduct = _mapper.Map<Products>(product);
@@ -38,7 +38,7 @@ namespace ProductsApi.Controllers
             return BadRequest("This product exist");
         }
 
-        [HttpDelete]
+        [HttpDelete("RemoveProduct")]
         public async Task<IActionResult> RemoveProduct(string name)
         {
             if (await _productsRepository.Remove(name))
@@ -46,7 +46,7 @@ namespace ProductsApi.Controllers
             return BadRequest("Product not found");
         }
 
-        [HttpPut]
+        [HttpPut("UpdateProduct")]
         public async Task<IActionResult> UpdateProduct(string productName, [FromBody] UpdateProduct product)
         {
             var updatedProduct = _mapper.Map<Products>(product);
