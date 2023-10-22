@@ -57,4 +57,11 @@ public class CustomersController : ControllerBase
         var productsList = await _customersRepository.CheckCustomerProducts(customerName);
         return Ok(productsList);
     }
+
+    [HttpGet("CheckBalance")]
+    public async Task<IActionResult> CheckBalance(string name)
+    {
+        var balance = await _customersRepository.CheckBalance(name);
+        return Ok(balance);
+    }
 }
