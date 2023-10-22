@@ -34,7 +34,10 @@ public class CustomersRepository : ICustomersRepository
 
     public async Task<decimal> CheckBalance(string name)
     {
-        throw new System.NotImplementedException();
+        var customer = await _context.Customers.SingleOrDefaultAsync(customer => customer.Name == name);
+        if (customer == null)
+            throw new NotImplementedException("Customer not exist");
+        return customer.Balance;
     }
 
     public async Task BuyProduct(string customerName, string productName)
