@@ -23,6 +23,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddScoped<IProductsRepository, ProductsRepository>();
+        services.AddScoped<ICustomersRepository, CustomersRepository>();
         services.AddControllers();
         services.AddSwaggerGen();
         services.AddAutoMapper(typeof(ApplicationProfile));
