@@ -59,7 +59,7 @@ public class CustomersRepository : ICustomersRepository
 
     public async Task<List<Customers>> ShowAllCustomers()
     {
-        throw new System.NotImplementedException();
+        return await _context.Customers.ToListAsync();
     }
 
     public async Task<List<Products>> CheckCustomerProducts(string name)
