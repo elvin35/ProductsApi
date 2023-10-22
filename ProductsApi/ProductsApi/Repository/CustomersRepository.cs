@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProductsApi.Data;
@@ -62,8 +63,10 @@ public class CustomersRepository : ICustomersRepository
         return await _context.Customers.ToListAsync();
     }
 
-    public async Task<List<Products>> CheckCustomerProducts(string name)
+    public async Task<List<Products>> CheckCustomerProducts(string customerName)
     {
-        throw new System.NotImplementedException();
+        var proudcts = await _context.Orders.Where(orders => orders.Customers.Name == customerName)
+            .Select(orders => orders.Products).ToListAsync();
+        return proudcts;
     }
 }
