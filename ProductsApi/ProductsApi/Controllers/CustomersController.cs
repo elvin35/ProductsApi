@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -48,5 +49,12 @@ public class CustomersController : ControllerBase
     {
         await _customersRepository.BuyProduct(customerName, productName);
         return Ok();
+    }
+
+    [HttpGet("GetCustomerProducts")]
+    public async Task<IActionResult> GetCustomerProducts(string customerName)
+    {
+        var productsList = await _customersRepository.CheckCustomerProducts(customerName);
+        return Ok(productsList);
     }
 }
