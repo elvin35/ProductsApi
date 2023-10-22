@@ -55,7 +55,8 @@ public class CustomersController : ControllerBase
     public async Task<IActionResult> GetCustomerProducts(string customerName)
     {
         var productsList = await _customersRepository.CheckCustomerProducts(customerName);
-        return Ok(productsList);
+        var productsListMapped = _mapper.Map<List<ProductsModel>>(productsList);
+        return Ok(productsListMapped);
     }
 
     [HttpGet("CheckBalance")]
