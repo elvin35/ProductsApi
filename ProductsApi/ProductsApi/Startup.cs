@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProductsApi.Repository;
 
 public class Startup
 {
@@ -21,6 +22,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddScoped<IProductsRepository, ProductsRepository>();
         services.AddControllers();
         services.AddSwaggerGen();
         services.AddAutoMapper(typeof(ApplicationProfile));
