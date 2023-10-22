@@ -2,7 +2,8 @@ namespace ProductsApi.Models;
 
 public class ProductsModel
 {
-   
+    [System.Text.Json.Serialization.JsonIgnore]
+    [Newtonsoft.Json.JsonIgnore]
     public int Id { get; set; }
 
     public string Name { get; set; }
