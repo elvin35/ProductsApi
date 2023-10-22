@@ -22,6 +22,12 @@ public class CustomersController : ControllerBase
 
     }
     
+    [HttpGet("ShowAllCustomers")]
+    public async Task<IActionResult> ShowAllCustomers()
+    {
+        return Ok(await _customersRepository.ShowAllCustomers());
+    }
+    
     [HttpPost("AddCustomer")]
     public async Task<IActionResult> AddCustomer(CustomerModel customer)
     {
