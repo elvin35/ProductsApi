@@ -1,8 +1,10 @@
+using System.Text.Json.Serialization;
+
 namespace ProductsApi.Models;
 
 public class CustomerModel
 {
-    [Newtonsoft.Json.JsonIgnore]
+    [JsonIgnore]
     public int Id { get; set; }
     
     public string Name { get; set; }
