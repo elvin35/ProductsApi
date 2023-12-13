@@ -23,9 +23,9 @@ public class CustomersRepository : ICustomersRepository
         return true;
     }
 
-    public async Task<bool> Remove(string name)
+    public async Task<bool> Remove(int customerId)
     {
-        var customer = await _context.Customers.SingleOrDefaultAsync(customer => customer.Name == name);
+        var customer = await _context.Customers.SingleOrDefaultAsync(customer => customer.Id == customerId);
         if (customer == null)
             return false;
         _context.Customers.Remove(customer);
@@ -33,17 +33,17 @@ public class CustomersRepository : ICustomersRepository
         return true;
     }
 
-    public async Task<decimal> CheckBalance(string name)
+    public async Task<decimal> CheckBalance(int customerId)
     {
-        var customer = await _context.Customers.SingleOrDefaultAsync(customer => customer.Name == name);
+        var customer = await _context.Customers.SingleOrDefaultAsync(customer => customer.Id == customerId);
         if (customer == null)
             throw new NotImplementedException("Customer not exist");
         return customer.Balance;
     }
 
-    public async Task BuyProduct(string customerName, string productName)
+    public async Task BuyProduct(int customerId, string productName)
     {
-        var customer = await _context.Customers.SingleOrDefaultAsync(customer => customer.Name == customerName);
+        var customer = await _context.Customers.SingleOrDefaultAsync(customer => customer.Id == customerId);
         var product = await _context.Products.SingleOrDefaultAsync(product => product.Name == productName);
         if (customer.Balance >= product.Price)
         {
@@ -63,10 +63,10 @@ public class CustomersRepository : ICustomersRepository
         return await _context.Customers.ToListAsync();
     }
 
-    public async Task<List<Products>> CheckCustomerProducts(string customerName)
+    public async Task<List<Products>> CheckCustomerProducts(int customerId)
     {
-        var proudcts = await _context.Orders.Where(orders => orders.Customers.Name == customerName)
+        var products = await _context.Orders.Where(orders => orders.Customers.Id == customerId)
             .Select(orders => orders.Products).ToListAsync();
-        return proudcts;
+        return products;
     }
 }

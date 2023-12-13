@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ProductsApi.Data;
+using ProductsApi.Errors;
 using ProductsApi.Models;
 using ProductsApi.Repository;
 using System.Collections.Generic;
@@ -34,8 +35,13 @@ namespace ProductsApi.Controllers
         {
             var newProduct = _mapper.Map<Products>(product);
             if (await _productsRepository.Add(newProduct))
-                return Ok($"Product {product.Name} added");
-            return BadRequest("This product exist");
+                return Ok(new ApiOkResponse(product));
+            return BadRequest(new ApiBadRequestResponse(ModelState));
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(new ApiBadRequestResponse(ModelState));
+            //}
+            //return Ok(product);
         }
 
         [HttpDelete("RemoveProduct")]

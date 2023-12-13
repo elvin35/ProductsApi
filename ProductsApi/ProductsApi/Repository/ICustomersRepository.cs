@@ -8,13 +8,13 @@ public interface ICustomersRepository
 {
     Task<bool> Add(Customers customer);
 
-    Task<bool> Remove(string name);
+    Task<bool> Remove(int customerId);
 
-    Task<decimal> CheckBalance(string name);
+    Task<decimal> CheckBalance(int customerId);
 
-    Task BuyProduct(string customerName,string productName);
+    Task BuyProduct(int customerId,string productName);
 
     Task<List<Customers>> ShowAllCustomers();
     
-    Task<List<Products>> CheckCustomerProducts(string name);
+    Task<List<Products>> CheckCustomerProducts(int customerId);
 }

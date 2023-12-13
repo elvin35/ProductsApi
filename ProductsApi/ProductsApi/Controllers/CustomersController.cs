@@ -39,30 +39,30 @@ public class CustomersController : ControllerBase
     }
 
     [HttpDelete("RemoveCustomer")]
-    public async Task<IActionResult> RemoveCustomer(string name)
+    public async Task<IActionResult> RemoveCustomer(int customerId)
     {
-        return Ok(await _customersRepository.Remove(name));
+        return Ok(await _customersRepository.Remove(customerId));
     }
 
     [HttpPost("BuyProductByName")]
-    public async Task<IActionResult> BuyProduct(string customerName, string productName)
+    public async Task<IActionResult> BuyProduct(int customerId, string productName)
     {
-        await _customersRepository.BuyProduct(customerName, productName);
+        await _customersRepository.BuyProduct(customerId, productName);
         return Ok();
     }
 
     [HttpGet("GetCustomerProducts")]
-    public async Task<IActionResult> GetCustomerProducts(string customerName)
+    public async Task<IActionResult> GetCustomerProducts(int customerId)
     {
-        var productsList = await _customersRepository.CheckCustomerProducts(customerName);
+        var productsList = await _customersRepository.CheckCustomerProducts(customerId);
         var productsListMapped = _mapper.Map<List<ProductsModel>>(productsList);
         return Ok(productsListMapped);
     }
 
     [HttpGet("CheckBalance")]
-    public async Task<IActionResult> CheckBalance(string name)
+    public async Task<IActionResult> CheckBalance(int customerId)
     {
-        var balance = await _customersRepository.CheckBalance(name);
+        var balance = await _customersRepository.CheckBalance(customerId);
         return Ok(balance);
     }
 }
